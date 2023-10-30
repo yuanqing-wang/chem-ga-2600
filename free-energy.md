@@ -5,6 +5,9 @@ Introduction to free energy calculations
 Simons Center Fellow;
 [wangyq@wangyq.net](mailto:wangyq@wangyq.net)
 
+
+Would appreciate your feedback at: <https://forms.gle/rkGLPHtJ9ncHHuqBA>
+
 ### Why are we doing free energy calculations? 🤔
 The protein-ligand binding free energy gives us
 qauntitative insights into the behavior or small molecules,
@@ -174,7 +177,7 @@ $$
 \Delta A_{AB} 
 = \int\limits_0^1
 \frac{\partial A}{ \partial \lambda} d\lambda
-= <\frac{\partial U}{\partial \lambda}>_\lambda d\lambda.
+= \int\limits_0^1 <\frac{\partial U}{\partial \lambda}>_\lambda d\lambda.
 
 $$
 This is called thermodynamic integration.
@@ -198,7 +201,7 @@ $$
 
 How does this relate to our old friend, the second law of thermodynamics?
 
-### Jarzynski's equality
+
 
 
 
