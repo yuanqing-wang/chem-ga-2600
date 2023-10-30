@@ -94,10 +94,10 @@ Pluggin in the previous equation,
 we trivially arrive at (verify this!):
 
 $$
-\Delta A_{AB} = -kT \ln <\exp(-\beta (U_B - U_A))>_A
+\Delta A_{AB} = -kT \ln \langle \exp(-\beta (U_B - U_A)) \rangle _A
 $$
 
-where the notation $<>_A$ signifies that the average is taken w.r.t. the canonical distribution of the state $A$.
+where the notation $\langle\rangle_A$ signifies that the average is taken w.r.t. the canonical distribution of the state $A$.
 
 Voilà! Now we have the expression of the free energy difference _exactly_!
 
@@ -110,11 +110,10 @@ Generate a bunch of intermediate state and rewrite:
 
 $$
 \Delta A_{AB}
-
 = -kT 
 \sum\limits_{\alpha=1}^{M-1}
 \ln
-<
+\langle
 \exp\big(
 -\beta
 \small(
@@ -122,7 +121,7 @@ U_{\alpha+1}
 - U_\alpha
 \small)
 \big)
->_\alpha.
+\rangle_\alpha.
 $$
 
 And why is this still legal? 🤨
@@ -133,7 +132,6 @@ One way to select infinite many such states  $\{\alpha \}$ is by defining
 
 $$
 U(\mathbf{r}, \lambda)
-
 = f(\lambda)U_A(\mathbf{r})
 + g(\lambda)U_B(\mathbf{r})
 $$
@@ -151,7 +149,7 @@ $$
 \Delta A_{AB} 
 = \int\limits_0^1
 \frac{\partial A}{ \partial \lambda} d\lambda
-= \int\limits_0^1 <\frac{\partial U}{\partial \lambda}>_\lambda d\lambda.
+= \int\limits_0^1 \langle\frac{\partial U}{\partial \lambda}\rangle_\lambda d\lambda.
 $$
 This is called thermodynamic integration.
 
@@ -165,13 +163,30 @@ Plugging in, we have:
 
 $$
 \Delta A_{AB} = 
-\int\limits_0^1 < U_B - U_A >_\lambda d\lambda
+\int\limits_0^1 \langle U_B - U_A \rangle_\lambda d\lambda
 $$
 
 How does this relate to our old friend, the second law of thermodynamics?
 
 ### Jarzynski's equality
+We have now been restricting ourselves to the realm of equilibrium free energy methods.
+How can we jump out of that?🏃‍♀️
 
+The work–free–energy inequality
+
+$$
+\langle W_{AB}(x) \rangle _A \geq \Delta A_{AB}
+$$
+
+dictates that we can get the upper bound of free energy difference from worked performed on the system would only lead to an upper bound.
+
+Jarzynski's equality, nevertheless, states that if we don't average the work itself, but the term $\exp(-\beta W_{AB}(x))$, we can establish an equal relationship:
+
+$$
+\Delta A_{AB} = -kT \langle \exp(-\beta W_{AB}(x))\rangle
+$$
+
+which is the foundation for nonequilibrium free energy methods.
 
 
 
