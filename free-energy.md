@@ -1,15 +1,15 @@
 Introduction to free energy calculations
 ---
 
-[Yuanqing Wang](wangyq.net),
+[Yuanqing Wang](wangyq.net/contact),
 Simons Center Fellow;
 [wangyq@wangyq.net](mailto:wangyq@wangyq.net)
 
-### Why are we doing free energy calculations?
+### Why are we doing free energy calculations? 🤔
 The protein-ligand binding free energy gives us
 qauntitative insights into the behavior or small molecules,
 which is our best bet, at the protein level,
-to provide some educated guess about the potency of the compound.
+to provide some educated guess about the potency of the compound. 💊
 
 Consider a system
 with protein $P$, ligand $L$, and protein-ligand complex $PL$,
@@ -19,7 +19,7 @@ $$
 P + L \rightleftharpoons PL
 $$
 
-we are interested in the association coëfficient:
+we are interested in the association coëfficient: 🤝
 
 $$
 
@@ -36,7 +36,7 @@ $$
 $$
 
 
-### Definition of free energy
+### Definition of free energy 
 
 The difference between free energies are simply defined as:
 $$
@@ -53,10 +53,152 @@ A = E - TS
 
 $$
 
-For each state, we can write:
+BTW, checkout the relationship between Helmholtz free energy and autoencoder discussed by Hinton [here](https://proceedings.neurips.cc/paper/1993/hash/9e3cfc48eccf81a0d57663e129aef3cb-Abstract.html).
 
 
+### Free energy perturbation
+Recall that Helmholtz free energy is related to the canonical partition functions by
 
+$$
+
+A = -kT \ln Q
+
+$$
+
+where
+
+$$
+
+Q(N, V, T)
+
+= C_N \int d^N \mathbf{p} d^N \mathbf{r}
+\exp(-\beta \mathcal{H}),
+
+$$
+
+where the Hamiltonian
+
+$$
+
+\mathcal{H} = \sum\frac{\mathbf{p}^2}{2m} + U.
+
+$$
+
+When integrating over the phase space,
+the momentum factor cancels out of the ratio, allowing us to _just_ use the ratio of
+_configurataional partition function_:
+
+$$
+
+Z = \int d^N \mathbf{r} \exp(-\beta U)
+
+$$
+
+to evaluate the free energy:
+
+$$
+
+\Delta A_{AB} 
+= A_B - A_A
+= -kT \ln \frac{Z_B}{Z_A}.
+
+$$
+
+Pluggin in the previous equation,
+we trivially arrive at (verify this!):
+
+$$
+
+\Delta A_{AB} = -kT \ln <\exp(-\beta (U_B - U_A))>_A
+
+$$
+
+where the notation $<>_A$ signifies that the average is taken w.r.t. the canonical distribution of the state $A$.
+
+Voilà! Now we have the expression of the free energy difference _exactly_!
+
+**Discussion**: 
+why haven't we designed cures for all cancers yet using this _exact_ equation? 
+What's wrong?
+
+**Remedy**: 
+Generate a bunch of intermediate state and rewrite:
+
+$$
+
+\Delta A_{AB}
+
+= -kT 
+\sum\limits_{\alpha=1}^{M-1}
+\ln
+<
+\exp\big(
+-\beta
+\small(
+U_{\alpha+1}
+- U_\alpha
+\small)
+\big)
+>_\alpha.
+
+$$
+
+And why is this still legal? 🤨
+
+### Adiabatic switching 📈
+
+One way to select infinite many such states  $\{\alpha \}$ is by defining
+
+$$
+
+U(\mathbf{r}, \lambda)
+
+= f(\lambda)U_A(\mathbf{r})
++ g(\lambda)U_B(\mathbf{r})
+
+$$
+
+with switching functions satisfying
+
+$$
+
+f(0) = g(1) = 1;
+f(1) = g(0) = 0.
+
+$$
+
+Now the discrete sum becomes an intergral (verify this):
+
+$$
+
+\Delta A_{AB} 
+= \int\limits_0^1
+\frac{\partial A}{ \partial \lambda} d\lambda
+= <\frac{\partial U}{\partial \lambda}>_\lambda d\lambda.
+
+$$
+This is called thermodynamic integration.
+
+Now let's look at the dummest choice of the $\lambda$-schedule:
+
+$$
+
+f(\lambda) = 1 - \lambda; g(\lambda) = \lambda.
+
+$$
+
+Plugging in, we have:
+
+$$
+
+\Delta A_{AB} = 
+\int\limits_0^1 < U_B - U_A >_\lambda d\lambda
+
+$$
+
+How does this relate to our old friend, the second law of thermodynamics?
+
+### Jarzynski's equality
 
 
 
